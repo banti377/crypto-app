@@ -1,9 +1,15 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
+import Navbar from '../components/Navbar';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  return <Component {...pageProps} />;
+  return (
+    <div className="px-10">
+      <Navbar />
+      <Component {...pageProps} />
+    </div>
+  );
 }
 
 export default MyApp;

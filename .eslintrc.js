@@ -23,11 +23,25 @@ module.exports = {
   rules: {
     'react/function-component-definition': 'off',
     'arrow-body-style': 'off',
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': ['error'],
+    'react/prop-types': 'off', // we do not use prop-types
+    'react/require-default-props': 'off', // we do not use prop-types
     'react/jsx-filename-extension': [1,
       {
         extensions: [
           '.tsx',
         ],
+      },
+    ],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
       },
     ],
   },
