@@ -7,7 +7,7 @@ function Navbar(): ReactElement {
   const router = useRouter();
 
   return (
-    <nav className="px-5 py-4 no-underline flex items-center justify-between">
+    <nav className="py-4 no-underline flex items-center justify-between">
       <h1 className="text-3xl font-bold">CryptoApp</h1>
       <ul className="flex items-center space-x-10 font-medium">
         <Navitem

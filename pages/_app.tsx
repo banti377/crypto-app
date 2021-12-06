@@ -1,14 +1,27 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import '../styles/globals.css';
 import type { AppProps } from 'next/app';
+import { useState } from 'react';
+import {
+  QueryClient,
+  QueryClientProvider,
+  Hydrate,
+} from 'react-query';
+
 import Navbar from '../components/Navbar';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [queryClient] = useState(() => new QueryClient());
+
   return (
-    <div className="px-10">
-      <Navbar />
-      <Component {...pageProps} />
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <Hydrate state={pageProps.dehydratedState}>
+        <div className="px-10">
+          <Navbar />
+          <Component {...pageProps} />
+        </div>
+      </Hydrate>
+    </QueryClientProvider>
   );
 }
 
