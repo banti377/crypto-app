@@ -21,6 +21,7 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'no-undef': 'off', // Because typescript has its own checks.
     'react/function-component-definition': 'off',
     'arrow-body-style': 'off',
     'no-use-before-define': 'off',

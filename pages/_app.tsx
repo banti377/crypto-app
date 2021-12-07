@@ -16,8 +16,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <div className="px-10">
-          <Navbar />
+        <Navbar />
+        <div className="px-10 pt-10 bg-black h-screen text-white">
           <Component {...pageProps} />
         </div>
       </Hydrate>

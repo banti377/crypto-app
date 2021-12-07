@@ -7,8 +7,10 @@ function Navbar(): ReactElement {
   const router = useRouter();
 
   return (
-    <nav className="py-4 no-underline flex items-center justify-between">
-      <h1 className="text-3xl font-bold">CryptoApp</h1>
+    <nav className="px-10 py-4 no-underline flex items-center justify-between sticky bg-black w-full text-white">
+      <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-l from-pink-500 to-purple-500">
+        Crypto App
+      </h1>
       <ul className="flex items-center space-x-10 font-medium">
         <Navitem
           href={routes.home}
