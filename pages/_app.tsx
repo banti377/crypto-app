@@ -6,9 +6,15 @@ import {
   QueryClientProvider,
   Hydrate,
 } from 'react-query';
+import styled from 'styled-components';
 
 import Navbar from '../components/Navbar';
 import '../styles/globals.css';
+
+const StyledDiv = styled.div`
+  padding: 0 10%;
+  height: 100vh;
+`;
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
@@ -17,9 +23,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <Navbar />
-        <div className="px-10 pt-10 bg-black h-screen text-white">
+        <StyledDiv>
           <Component {...pageProps} />
-        </div>
+        </StyledDiv>
       </Hydrate>
     </QueryClientProvider>
   );

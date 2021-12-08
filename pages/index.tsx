@@ -1,10 +1,10 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
-import Card from '../components/Card';
+import { AiOutlineSearch } from 'react-icons/ai';
 import useCoins, { getCoins } from '../hooks/useCoins';
 
 const Home: NextPage = () => {
-  const { data, error } = useCoins();
+  const { error } = useCoins();
 
   if (error) {
     return (
@@ -15,45 +15,20 @@ const Home: NextPage = () => {
   }
 
   return (
-    <div className="flex flex-col space-y-10">
-      <div className="flex flex-col space-y-5">
-        <h1 className="text-3xl font-medium">Global Stats</h1>
-        <div className="flex flex-row items-center flex-wrap justify-between">
-          <Card
-            title="Total Cryptocurrencies"
-            content={(
-              <div className="font-medium text-xl">
-                {data?.stats.total}
-              </div>
-          )}
-          />
-          <Card
-            title="Total 24h Volume"
-            content={(
-              <div className="font-medium text-xl">
-                {data?.stats.total24hVolume}
-              </div>
-          )}
-          />
-          <Card
-            title="Total Exchanges"
-            content={(
-              <div className="font-medium text-xl">
-                {data?.stats.totalExchanges}
-              </div>
-          )}
-          />
-          <Card
-            title="Total Marketcap"
-            content={(
-              <div className="font-medium text-xl">
-                {data?.stats.totalMarketCap}
-              </div>
-          )}
+    <div className="relative flex flex-col space-y-10">
+      <div className="absolute -top-5 w-full flex items-center justify-center">
+        <div className="relative w-full flex items-center text-gray-500 focus-within:text-gray-800">
+          <AiOutlineSearch className="ml-2 absolute w-5 h-5 pointer-events-none" />
+          <input
+            type="text"
+            className="pl-10 pr-5 py-2 w-2/3 rounded-md shadow-md"
+            placeholder="Search cryptocurrencies..."
           />
         </div>
       </div>
-      <div>Top cryptos</div>
+      <div className="grid grid-cols-3">
+        cards here
+      </div>
     </div>
   );
 };
@@ -61,7 +36,7 @@ const Home: NextPage = () => {
 export const getServerSideProps: GetServerSideProps = async () => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery('coins', getCoins);
+  await queryClient.prefetchQuery('coins', () => getCoins());
 
   return {
     props: {

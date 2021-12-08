@@ -17,7 +17,7 @@ const StyledA = styled.a<AProps>`
   padding: 5px;
   &:after {
     content: "";
-    background-color: #EC4899;
+    background-color: white;
     position: absolute;
     height: 3px;
     width: ${(props) => (props.active ? '100%' : '0')};
@@ -39,7 +39,7 @@ function Navitem({ active = false, href, label }: Props): ReactElement {
       >
         <StyledA
           active={active}
-          className="text-pink-500 text-xl font-medium"
+          className="text-xl font-medium"
         >
           {label}
         </StyledA>
