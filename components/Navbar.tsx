@@ -12,7 +12,7 @@ function Navbar(): ReactElement {
   const router = useRouter();
 
   return (
-    <StyledNav className="px-20 h-28 bg-primary text-white rounded-bl-full py-4 no-underline flex items-center justify-between sticky w-full">
+    <StyledNav className="px-20 h-28 bg-primary text-white rounded-bl-full py-4 no-underline flex items-center justify-between w-full">
       <h1 className="text-4xl font-bold">
         Crypto App
       </h1>

@@ -13,7 +13,7 @@ import '../styles/globals.css';
 
 const StyledDiv = styled.div`
   padding: 0 10%;
-  height: 100vh;
+  height: 100%;
 `;
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -22,10 +22,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <Navbar />
-        <StyledDiv>
-          <Component {...pageProps} />
-        </StyledDiv>
+        <div className="bg-gray-200">
+          <Navbar />
+          <StyledDiv>
+            <Component {...pageProps} />
+          </StyledDiv>
+        </div>
       </Hydrate>
     </QueryClientProvider>
   );
