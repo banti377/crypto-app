@@ -1,9 +1,6 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-
-interface Props {
-  children: React.ReactNode;
-}
+import { AiOutlineLoading } from 'react-icons/ai';
 
 const ContentSpan = styled.span`
   position: relative;
@@ -49,16 +46,47 @@ const StyledButton = styled.button`
     transform: translateY(-2px);
     transition: all 25ms ease 0s;
   }
+  &:disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    ${ContentSpan} {
+      background: gray;
+    }
+    ${BackdropSpan} {
+      background: gray;
+    }
+  }
 `;
 
-function Button({ children }: Props): ReactElement {
+interface Props {
+  children: React.ReactNode;
+  onClick: () => void;
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+  loading?: boolean;
+}
+
+function Button({
+  children, onClick, type = 'button', disabled = false, loading = false,
+}: Props): ReactElement {
   return (
-    <StyledButton
-      type="button"
-    >
-      <BackdropSpan />
-      <ContentSpan>{children}</ContentSpan>
-    </StyledButton>
+    <div className="cursor-not-allowed w-min">
+      <StyledButton
+        type={type}
+        onClick={onClick}
+        disabled={disabled || loading}
+      >
+        <BackdropSpan />
+        <ContentSpan>
+          <div className="flex items-center space-x-4">
+            {loading ? (
+              <AiOutlineLoading className="animate-spin" />
+            ) : null}
+            <span>{children}</span>
+          </div>
+        </ContentSpan>
+      </StyledButton>
+    </div>
   );
 }
 

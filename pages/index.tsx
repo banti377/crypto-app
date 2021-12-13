@@ -6,7 +6,13 @@ import Card from '../components/Card';
 import Button from '../components/Button';
 
 const Home: NextPage = () => {
-  const { data, error } = useCoins();
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useCoins();
 
   if (error) {
     return (
@@ -29,18 +35,26 @@ const Home: NextPage = () => {
         </div>
       </div>
       <div className="grid grid-cols-3 gap-y-10 gap-x-5">
-        {data?.coins?.map((coin) => {
-          return (
-            <Card
-              key={coin.id}
-              title={coin.name}
-              logoURL={coin.iconUrl}
-              symbol={coin.symbol}
-            />
-          );
+        {data?.pages?.map((crrPage) => {
+          return crrPage.coins?.map((coin) => {
+            return (
+              <Card
+                key={coin.id}
+                title={coin.name}
+                logoURL={coin.iconUrl}
+                symbol={coin.symbol}
+              />
+            );
+          });
         })}
       </div>
-      <Button>Load more</Button>
+      <Button
+        onClick={() => fetchNextPage()}
+        disabled={!hasNextPage || isFetchingNextPage}
+        loading={isFetchingNextPage || (!data && !error)}
+      >
+        Load more
+      </Button>
     </div>
   );
 };
@@ -48,11 +62,15 @@ const Home: NextPage = () => {
 export const getServerSideProps: GetServerSideProps = async () => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery('coins', () => getCoins());
+  await queryClient.prefetchInfiniteQuery('coins', getCoins);
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      /**
+       * Why JSON.stringify and JSON.parse?
+       * @see https://github.com/tannerlinsley/react-query/issues/1458
+       */
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
     },
   };
 };
